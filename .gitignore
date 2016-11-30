@@ -27,3 +27,15 @@
 *.exe
 *.out
 *.app
+
+# MSVC junk
+.DS_Store
+_ReSharper*
+*.opensdf
+*.sdf
+*.suo
+*.dir
+Win32
+x64
+Debug
+Release

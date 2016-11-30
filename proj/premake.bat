@@ -1,0 +1,5 @@
+@echo off
+pushd %~dp0\..\lib\glfw
+git clean -ffxd
+cmake -G "Visual Studio 12 2013" -DBUILD_SHARED_LIBS=OFF -DCMAKE_CONFIGURATION_TYPES=Debug;Release -DGLFW_BUILD_DOCS=OFF -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=OFF -DGLFW_INSTALL=OFF
+popd
