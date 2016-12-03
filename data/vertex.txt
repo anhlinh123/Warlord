@@ -1,0 +1,10 @@
+#version 300 es
+in vec3 a_posL;
+in vec4 a_col;
+out vec4 color;
+void main()
+{
+vec4 posL = vec4(a_posL, 1.0);
+color = a_col;
+gl_Position = posL;
+}
