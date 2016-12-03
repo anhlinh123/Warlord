@@ -3,15 +3,15 @@
 #include <stdio.h>
 #include "vertex.h"
 #include <shader.h>
+#include <mesh.h>
 
-GLuint vboId;
+Mesh mesh;
 Shader shader;
 
 void Init()
 {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-	//triangle data (heap)
 	Vertex verticesData[3];
 
 	verticesData[0].position.x = 0.0f;  verticesData[0].position.y = 0.5f;  verticesData[0].position.z = 0.0f;
@@ -22,13 +22,9 @@ void Init()
 	verticesData[1].color.x = 0.0f;  verticesData[1].color.y = 1.0f;  verticesData[1].color.z = 0.0f; verticesData[1].color.a = 1.0f;
 	verticesData[2].color.x = 0.0f;  verticesData[2].color.y = 0.0f;  verticesData[2].color.z = 1.0f; verticesData[2].color.a = 1.0f;
 
-	//buffer object
-	glGenBuffers(1, &vboId);
-	glBindBuffer(GL_ARRAY_BUFFER, vboId);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(verticesData), verticesData, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	GLushort indices[] = { 0, 1, 2 };
 
-	//create shader
+	mesh.Load(verticesData, 3, indices, 3);
 	shader.Load("triangle");
 }
 
@@ -37,14 +33,10 @@ void Draw()
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	shader.UseProgram();
-
-	glBindBuffer(GL_ARRAY_BUFFER, vboId);
-
+	mesh.BindBuffer();
 	shader.EnableVertexAttribArray();
-
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	mesh.Draw();
+	mesh.UnBindBuffer();
 }
 
 int main(void)
