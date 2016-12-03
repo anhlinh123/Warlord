@@ -31,4 +31,16 @@ struct Vertex
 	_f4 color;
 };
 
+#define VERTEX_ATTRIBUTE_COUNTS 2
+
+struct VertexAttribute
+{
+	const char* name;
+	GLuint componentCounts;
+	GLenum type;
+	GLuint offset;
+};
+
+extern VertexAttribute VertexAttributes[];
+
 #endif

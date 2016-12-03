@@ -35,6 +35,8 @@ _ReSharper*
 *.sdf
 *.suo
 *.dir
+*.user
+*AutoRecover*
 Win32
 x64
 Debug

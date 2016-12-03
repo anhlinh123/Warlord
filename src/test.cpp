@@ -2,112 +2,10 @@
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 #include "vertex.h"
+#include <shader.h>
 
 GLuint vboId;
-GLuint program;
-GLuint posAttrib;
-GLuint colAttrib;
-
-GLuint LoadShader(GLenum type, char * filename)
-{
-	GLuint shader;
-	GLint compiled;
-
-	// Create the shader object
-	shader = glCreateShader(type);
-
-	if (shader == 0)
-		return 0;
-
-	// Load the shader source
-	FILE * pf;
-	if (fopen_s(&pf, filename, "rb") != 0)
-		return NULL;
-	fseek(pf, 0, SEEK_END);
-	long size = ftell(pf);
-	fseek(pf, 0, SEEK_SET);
-
-	char * shaderSrc = new char[size + 1];
-	fread(shaderSrc, sizeof(char), size, pf);
-	shaderSrc[size] = 0;
-	fclose(pf);
-
-	glShaderSource(shader, 1, (const char **)&shaderSrc, NULL);
-	delete[] shaderSrc;
-
-	// Compile the shader
-	glCompileShader(shader);
-
-	// Check the compile status
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
-
-	if (!compiled)
-	{
-		GLint infoLen = 0;
-
-		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLen);
-
-		if (infoLen > 1)
-		{
-			char* infoLog = new char[infoLen];
-
-
-			glGetShaderInfoLog(shader, infoLen, NULL, infoLog);
-			printf("Error compiling shader <%s>:\n%s\n", filename, infoLog);
-
-			delete[] infoLog;
-		}
-
-		glDeleteShader(shader);
-		return 0;
-	}
-
-	return shader;
-}
-
-GLuint LoadProgram(GLuint vertexShader, GLuint fragmentShader)
-{
-	GLuint programObject;
-	GLint linked;
-
-	// Create the program object
-	programObject = glCreateProgram();
-
-	if (programObject == 0)
-		return 0;
-
-	glAttachShader(programObject, vertexShader);
-	glAttachShader(programObject, fragmentShader);
-
-	// Link the program
-	glLinkProgram(programObject);
-
-	// Check the link status
-	glGetProgramiv(programObject, GL_LINK_STATUS, &linked);
-
-	if (!linked)
-	{
-		GLint infoLen = 0;
-
-		glGetProgramiv(programObject, GL_INFO_LOG_LENGTH, &infoLen);
-
-		if (infoLen > 1)
-		{
-			char* infoLog = new char[sizeof(char) * infoLen];
-
-
-			glGetProgramInfoLog(programObject, infoLen, NULL, infoLog);
-			printf("Error linking program:\n%s\n", infoLog);
-
-			delete infoLog;
-		}
-
-		glDeleteProgram(programObject);
-		return 0;
-	}
-
-	return programObject;
-}
+Shader shader;
 
 void Init()
 {
@@ -130,32 +28,19 @@ void Init()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(verticesData), verticesData, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	//creation of shaders and program 
-	GLuint vertexShader = LoadShader(GL_VERTEX_SHADER, "vertex.txt");
-	GLuint fragmentShader = LoadShader(GL_FRAGMENT_SHADER, "fragment.txt");
-	program = LoadProgram(vertexShader, fragmentShader);
-	posAttrib = glGetAttribLocation(program, "a_posL");
-	colAttrib = glGetAttribLocation(program, "a_col");
+	//create shader
+	shader.Load("triangle");
 }
 
 void Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	glUseProgram(program);
+	shader.UseProgram();
 
 	glBindBuffer(GL_ARRAY_BUFFER, vboId);
 
-	if (posAttrib != -1)
-	{
-		glEnableVertexAttribArray(posAttrib);
-		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
-	}
-	if (colAttrib != -1)
-	{
-		glEnableVertexAttribArray(colAttrib);
-		glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)(3 * sizeof(float)));
-	}
+	shader.EnableVertexAttribArray();
 
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 
