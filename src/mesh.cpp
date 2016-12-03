@@ -1,4 +1,7 @@
 #include <mesh.h>
+#include <assimp/cimport.h>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 Mesh::Mesh()
 {
@@ -11,7 +14,7 @@ Mesh::Mesh(const Vertex* vertices, int vertex_count, const GLushort* indices, in
 
 Mesh::Mesh(const char* fileName)
 {
-
+	Load(fileName);
 }
 
 Mesh::~Mesh()
@@ -34,7 +37,8 @@ void Mesh::Load(const Vertex* vertices, int vertex_count, const GLushort* indice
 
 void Mesh::Load(const char* fileName)
 {
-
+	const struct aiScene* scene = aiImportFile(fileName, aiProcessPreset_TargetRealtime_MaxQuality);
+	int x = 0;
 }
 
 void Mesh::BindBuffer()

@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glfw", "..\lib\glfw\src\glf
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "assimp", "..\lib\assimp\code\assimp.vcxproj", "{028B8F13-2F03-3042-A331-C2F4B202722A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlibstatic", "..\lib\assimp\contrib\zlib\zlibstatic.vcxproj", "{61A572CA-AFBC-35FA-AB0A-CD91FBE6D131}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -31,6 +33,10 @@ Global
 		{028B8F13-2F03-3042-A331-C2F4B202722A}.Debug|Win32.Build.0 = Debug|Win32
 		{028B8F13-2F03-3042-A331-C2F4B202722A}.Release|Win32.ActiveCfg = Release|Win32
 		{028B8F13-2F03-3042-A331-C2F4B202722A}.Release|Win32.Build.0 = Release|Win32
+		{61A572CA-AFBC-35FA-AB0A-CD91FBE6D131}.Debug|Win32.ActiveCfg = Debug|Win32
+		{61A572CA-AFBC-35FA-AB0A-CD91FBE6D131}.Debug|Win32.Build.0 = Debug|Win32
+		{61A572CA-AFBC-35FA-AB0A-CD91FBE6D131}.Release|Win32.ActiveCfg = Release|Win32
+		{61A572CA-AFBC-35FA-AB0A-CD91FBE6D131}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
