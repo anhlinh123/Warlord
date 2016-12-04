@@ -1,7 +1,7 @@
 #ifndef __VERTEX_H__
 #define __VERTEX_H__
 
-union _f3
+typedef union _f3
 {
 	struct
 	{
@@ -11,9 +11,9 @@ union _f3
 	{
 		float r, g, b;
 	};
-};
+} _f3;
 
-union _f4
+typedef union _f4
 {
 	struct
 	{
@@ -23,23 +23,23 @@ union _f4
 	{
 		float r, g, b, a;
 	};
-};
+} _f4;
 
-struct Vertex
+typedef struct Vertex
 {
 	_f3 position;
 	_f4 color;
-};
+} Vertex;
 
 #define VERTEX_ATTRIBUTE_COUNTS 2
 
-struct VertexAttribute
+typedef struct VertexAttribute
 {
 	const char* name;
 	GLuint componentCounts;
 	GLenum type;
 	GLuint offset;
-};
+} VertexAttribute;
 
 extern VertexAttribute VertexAttributes[];
 

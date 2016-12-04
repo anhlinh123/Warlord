@@ -1,29 +1,27 @@
 #ifndef __SHADER_H__
 #define __SHADER_H__
 
-#include <glad.h>
-#include <unordered_map>
 #include <config.h>
+#include <glad.h>
 #include <vertex.h>
+#include <uthash.h>
 
-class Shader
+typedef struct UniformLocation
 {
-public:
-	Shader();
-	Shader(const char* fileName);
-	~Shader();
+	char name[INTRINSIC_STRING_LENGTH];
+	GLuint location;
+	UT_hash_handle hh;
+} UniformLocation;
 
-	void Load(const char* fileName);
-	void UseProgram();
-	void EnableVertexAttribArray();
+typedef struct Shader
+{
+	char fileName[INTRINSIC_STRING_LENGTH];
+	GLuint program;
+	GLuint attribLocations[VERTEX_ATTRIBUTE_COUNTS];
+	UniformLocation* uniforms;
+} Shader;
 
-private:
-	char* m_fileName;
-	GLuint m_program;
-	GLuint m_attribLocations[VERTEX_ATTRIBUTE_COUNTS];
-	std::unordered_map<std::string, GLuint> m_uniformMap;
-
-	GLuint LoadShader(GLenum type, const char* fileName);
-};
+Shader* Shader_Create(const char* fileName);
+void Shader_Destroy(Shader* shader);
 
 #endif

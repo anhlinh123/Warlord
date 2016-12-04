@@ -4,23 +4,12 @@
 #include <glad.h>
 #include <vertex.h>
 
-class Mesh
+typedef struct Mesh
 {
-public:
-	Mesh();
-	Mesh(const Vertex* vertices, int vertex_count, const GLushort* indices, int index_count);
-	Mesh(const char* fileName);
-	~Mesh();
+	GLuint boIds[2];
+	GLuint indexCount;
+} Mesh;
 
-	void Load(const Vertex* vertices, int vertex_count, const GLushort* indices, int index_count);
-	void Load(const char* fileName);
-	void BindBuffer();
-	void UnBindBuffer();
-	void Draw();
-
-private:
-	GLuint m_boIds[2];
-	GLuint m_indexCount;
-};
+Mesh* Mesh_Create(const Vertex* vertices, int vertex_count, const GLushort* indices, int index_count);
 
 #endif
