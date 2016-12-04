@@ -11,11 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\frame.cpp" />
+    <ClCompile Include="..\src\frame.c" />
     <ClCompile Include="..\src\glad.c" />
     <ClCompile Include="..\src\material.c" />
     <ClCompile Include="..\src\mesh.c" />
-    <ClCompile Include="..\src\model.cpp" />
+    <ClCompile Include="..\src\model.c" />
     <ClCompile Include="..\src\shader.c" />
     <ClCompile Include="..\src\test.c" />
     <ClCompile Include="..\src\vertex.c" />

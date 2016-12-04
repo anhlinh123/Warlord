@@ -2,13 +2,13 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="..\src\glad.c" />
-    <ClCompile Include="..\src\model.cpp" />
-    <ClCompile Include="..\src\frame.cpp" />
     <ClCompile Include="..\src\material.c" />
     <ClCompile Include="..\src\shader.c" />
     <ClCompile Include="..\src\vertex.c" />
     <ClCompile Include="..\src\mesh.c" />
     <ClCompile Include="..\src\test.c" />
+    <ClCompile Include="..\src\frame.c" />
+    <ClCompile Include="..\src\model.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glad.h" />
