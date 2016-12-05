@@ -26,6 +26,7 @@
     <ClInclude Include="..\src\glad.h" />
     <ClInclude Include="..\src\khrplatform.h" />
     <ClInclude Include="..\src\material.h" />
+    <ClInclude Include="..\src\maths.h" />
     <ClInclude Include="..\src\mesh.h" />
     <ClInclude Include="..\src\model.h" />
     <ClInclude Include="..\src\shader.h" />

@@ -23,5 +23,6 @@
     <ClInclude Include="..\src\uthash.h" />
     <ClInclude Include="..\src\types.h" />
     <ClInclude Include="..\src\texture.h" />
+    <ClInclude Include="..\src\maths.h" />
   </ItemGroup>
 </Project>

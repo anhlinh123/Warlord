@@ -1,37 +1,20 @@
 #ifndef __VERTEX_H__
 #define __VERTEX_H__
 
-typedef union _f3
-{
-	struct
-	{
-		float x, y, z;
-	};
-	struct
-	{
-		float r, g, b;
-	};
-} _f3;
-
-typedef union _f4
-{
-	struct
-	{
-		float x, y, z, w;
-	};
-	struct
-	{
-		float r, g, b, a;
-	};
-} _f4;
+#include <maths.h>
 
 typedef struct Vertex
 {
-	_f3 position;
-	_f4 color;
+	float3 position;
+	float3 normal;
+	float3 tangent;
+	float3 bitangent;
+	float2 uv1;
+	float2 uv2;
+	float4 color;
 } Vertex;
 
-#define VERTEX_ATTRIBUTE_COUNTS 2
+#define VERTEX_ATTRIBUTE_COUNTS 7
 
 typedef struct VertexAttribute
 {

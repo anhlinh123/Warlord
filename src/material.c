@@ -1,31 +1,32 @@
 #include <material.h>
 
-Result GetMaterialProperty(const Material* material, const char* key, Generic out)
-{
-	MaterialProperty* property = NULL;
-	HASH_FIND_STR(material->properties, key, property);
-	if (property != NULL)
-	{
-		if (property->valueLength < out.size) {
-			return Result_FAILURE;
-		}
-		memcpy(out.data, property->value, out.size);
-		return Result_SUCCESS;
-	}
-	return Result_FAILURE;
-}
+#define Material_GetSet(T)														\
+Result Material_Get_##T(const Material* material, const char* name, T* value)	\
+{																				\
+	Property_##T* prop = NULL;													\
+	HASH_FIND_STR(material->T##s, name, prop);									\
+	if (prop != NULL && value != NULL)											\
+	{																			\
+		*value = prop->value;													\
+		return Result_SUCCESS;													\
+	}																			\
+	return Result_FAILURE;														\
+}																				\
+																				\
+Result Material_Set_##T(const Material* material, const char* name, T* value)	\
+{																				\
+	Property_##T* prop = NULL;													\
+	HASH_FIND_STR(material->T##s, name, prop);									\
+	if (prop != NULL && value != NULL)											\
+	{																			\
+		prop->value = *value;													\
+		return Result_SUCCESS;													\
+	}																			\
+	return Result_FAILURE;														\
+}																				\
 
-Result SetMaterialProperty(const Material* material, const char* key, Generic value)
-{
-	MaterialProperty* property = NULL;
-	HASH_FIND_STR(material->properties, key, property);
-	if (property != NULL)
-	{
-		if (property->valueLength < value.size) {
-			return Result_FAILURE;
-		}
-		memcpy(property->value, value.data, value.size);
-		return Result_SUCCESS;
-	}
-	return Result_FAILURE;
-}
+Material_GetSet(float);
+Material_GetSet(float3);
+Material_GetSet(float4);
+Material_GetSet(matrix3x3);
+Material_GetSet(matrix4x4);

@@ -2,13 +2,17 @@
 #define __FRAME_H__
 
 #include <config.h>
+#include <maths.h>
 
-struct Frame
+typedef struct Frame Frame;
+typedef struct Frame
 {
 	Frame* m_children;
 	uint32 m_childrenCount;
 	uint32* m_meshes;
 	uint32 m_meshCount;
-};
+	Frame* parent;
+	matrix4x4 transformation;
+} Frame;
 
 #endif
