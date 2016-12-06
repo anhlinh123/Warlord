@@ -139,7 +139,7 @@ Shader* Shader_Create(const char* fileName)
 		GLint location = glGetUniformLocation(program, name);
 		if (location >= 0)
 		{
-			UniformLocation* s = (UniformLocation*)malloc(sizeof(UniformLocation));
+			Uniform* s = (Uniform*)malloc(sizeof(Uniform));
 			strcpy(s->name, name);
 			s->location = (GLuint)location;
 			HASH_ADD_STR(shader->uniforms, name, s);
@@ -151,7 +151,7 @@ Shader* Shader_Create(const char* fileName)
 
 void Shader_Destroy(Shader* shader)
 {
-	UniformLocation* current, *tmp;
+	Uniform* current, *tmp;
 	HASH_ITER(hh, shader->uniforms, current, tmp)
 	{
 		HASH_DEL(shader->uniforms, current);
@@ -161,11 +161,13 @@ void Shader_Destroy(Shader* shader)
 	free(shader);
 }
 
-//void EnableVertexAttribArray()
-//{
-//	for (int i = 0; i < VERTEX_ATTRIBUTE_COUNTS; i++)
-//	{
-//		glEnableVertexAttribArray(m_attribLocations[i]);
-//		glVertexAttribPointer(m_attribLocations[i], VertexAttributes[i].componentCounts, VertexAttributes[i].type, GL_FALSE, sizeof(Vertex), (const void*)(VertexAttributes[i].offset));
-//	}
-//}
+GLint Shader_GetUniformLocation(const Shader* shader, const char* name)
+{
+	Uniform* uniform = NULL;
+	HASH_FIND_STR(shader->uniforms, name, uniform);
+	if (uniform != NULL)
+	{
+		return uniform->location;
+	}
+	return -1;
+}
