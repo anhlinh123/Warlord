@@ -1,7 +1,6 @@
-#include <glad.h>
+#include <shader.h>
 #include <vertex.h>
 #include <khash.h>
-#include <shader.h>
 #include <stdlib.h>
 #include <stdio.h>
 
