@@ -5,7 +5,7 @@
 #include <maths.h>
 
 typedef struct Frame Frame;
-typedef struct Frame
+struct Frame
 {
 	Frame* m_children;
 	uint32 m_childrenCount;
@@ -13,6 +13,6 @@ typedef struct Frame
 	uint32 m_meshCount;
 	Frame* parent;
 	matrix4x4 transformation;
-} Frame;
+};
 
 #endif

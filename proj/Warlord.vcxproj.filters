@@ -8,6 +8,7 @@
     <ClCompile Include="..\src\mesh.c" />
     <ClCompile Include="..\src\test.c" />
     <ClCompile Include="..\src\frame.c" />
+    <ClCompile Include="..\src\gason.cpp" />
     <ClCompile Include="..\src\model.c" />
   </ItemGroup>
   <ItemGroup>
@@ -25,5 +26,6 @@
     <ClInclude Include="..\src\texture.h" />
     <ClInclude Include="..\src\maths.h" />
     <ClInclude Include="..\src\khash.h" />
+    <ClInclude Include="..\src\gason.h" />
   </ItemGroup>
 </Project>

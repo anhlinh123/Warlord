@@ -2,17 +2,11 @@
 #define __MODEL_H__
 
 #include <config.h>
-#include <mesh.h>
-#include <frame.h>
-#include <material.h>
 
-typedef struct Model
-{
-	Material* materials;
-	uint32 materialCount;
-	Mesh* meshes;
-	uint32 meshCount;
-	Frame* rootFrame;
-} Model;
+typedef struct Model Model;
+
+Model* Model_Create(const char* name);
+void Model_Destroy(Model* model);
+void Model_Draw(Model* model);
 
 #endif

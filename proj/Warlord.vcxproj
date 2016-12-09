@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\frame.c" />
+    <ClCompile Include="..\src\gason.cpp" />
     <ClCompile Include="..\src\glad.c" />
     <ClCompile Include="..\src\material.c" />
     <ClCompile Include="..\src\mesh.c" />
@@ -23,6 +24,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\config.h" />
     <ClInclude Include="..\src\frame.h" />
+    <ClInclude Include="..\src\gason.h" />
     <ClInclude Include="..\src\glad.h" />
     <ClInclude Include="..\src\khash.h" />
     <ClInclude Include="..\src\khrplatform.h" />

@@ -1,8 +1,12 @@
 #include <mesh.h>
 #include <stdlib.h>
-//#include <assimp/cimport.h>
-//#include <assimp/scene.h>
-//#include <assimp/postprocess.h>
+
+struct Mesh
+{
+	GLuint boIds[2];
+	GLuint indexCount;
+	GLuint materialIndex;
+};
 
 Mesh* Mesh_Create(const Vertex* vertices, int vertex_count, const GLushort* indices, int index_count)
 {
@@ -22,4 +26,27 @@ Mesh* Mesh_Create(const Vertex* vertices, int vertex_count, const GLushort* indi
 	mesh->indexCount = index_count;
 
 	return mesh;
+}
+
+void Mesh_Destroy(Mesh* mesh)
+{
+	glDeleteBuffers(2, mesh->boIds);
+	free(mesh);
+}
+
+void Mesh_BindBuffer(const Mesh* mesh)
+{
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->boIds[0]);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->boIds[1]);
+}
+
+void Mesh_UnbindBuffer(const Mesh* mesh)
+{
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+void Mesh_Draw(const Mesh* mesh)
+{
+	glDrawElements(GL_TRIANGLES, mesh->indexCount, GL_UNSIGNED_SHORT, 0);
 }
