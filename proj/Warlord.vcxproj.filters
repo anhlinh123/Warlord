@@ -24,5 +24,6 @@
     <ClInclude Include="..\src\types.h" />
     <ClInclude Include="..\src\texture.h" />
     <ClInclude Include="..\src\maths.h" />
+    <ClInclude Include="..\src\khash.h" />
   </ItemGroup>
 </Project>

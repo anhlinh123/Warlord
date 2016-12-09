@@ -3,27 +3,24 @@
 
 #include <config.h>
 #include <shader.h>
-#include <hashtable.h>
 
 typedef struct Material Material;
 
-#define MaterialProperty(T)														\
-	typedef struct																\
-	{																			\
-		char name[INTRINSIC_STRING_LENGTH];										\
-		T value;																\
-	} Property_##T;																\
-																				\
-Result Material_Get_##T(const Material* material, const char* name, T* value);	\
-Result Material_Set_##T(const Material* material, const char* name, T* value);	\
+Material* Material_Create();
+void Material_Destroy(Material* material);
 
-#define Material_Get(type, material, name, value) Material_Get_##type(material, name, value);
-#define Material_Set(type, material, name, value) Material_Set_##type(material, name, value);
+Result Material_Get_Float(const Material* material, const char* name, float* value);
+Result Material_Get_Float3(const Material* material, const char* name, float3* value);
+Result Material_Get_Float4(const Material* material, const char* name, float4* value);
+Result Material_Get_Matrix3x3(const Material* material, const char* name, matrix3x3* value);
+Result Material_Get_Matrix4x4(const Material* material, const char* name, matrix4x4* value);
+Shader* Material_Get_Shader(const Material* material);
 
-MaterialProperty(float);
-MaterialProperty(float3);
-MaterialProperty(float4);
-MaterialProperty(matrix3x3);
-MaterialProperty(matrix4x4);
+Result Material_Set_Float(Material* material, const char* name, float* value);
+Result Material_Set_Float3(Material* material, const char* name, float3* value);
+Result Material_Set_Float4(Material* material, const char* name, float4* value);
+Result Material_Set_Matrix3x3(Material* material, const char* name, matrix3x3* value);
+Result Material_Set_Matrix4x4(Material* material, const char* name, matrix4x4* value);
+void Material_Set_Shader(Material* material, Shader* shader);
 
 #endif

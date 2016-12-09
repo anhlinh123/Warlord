@@ -24,6 +24,7 @@
     <ClInclude Include="..\src\config.h" />
     <ClInclude Include="..\src\frame.h" />
     <ClInclude Include="..\src\glad.h" />
+    <ClInclude Include="..\src\khash.h" />
     <ClInclude Include="..\src\khrplatform.h" />
     <ClInclude Include="..\src\material.h" />
     <ClInclude Include="..\src\maths.h" />
