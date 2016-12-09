@@ -32,14 +32,10 @@ void Init()
 void Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-	glUseProgram(shader->program);
+	Shader_Use(shader);
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->boIds[0]);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->boIds[1]);
-	for (int i = 0; i < VERTEX_ATTRIBUTE_COUNTS; i++)
-	{
-		glEnableVertexAttribArray(shader->attribLocations[i]);
-		glVertexAttribPointer(shader->attribLocations[i], VertexAttributes[i].componentCounts, VertexAttributes[i].type, GL_FALSE, sizeof(Vertex), (const void*)(VertexAttributes[i].offset));
-	}
+	Shader_EnableVertexArray(shader);
 	glDrawElements(GL_TRIANGLES, mesh->indexCount, GL_UNSIGNED_SHORT, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

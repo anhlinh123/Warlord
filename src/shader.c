@@ -1,6 +1,19 @@
+#include <glad.h>
+#include <vertex.h>
+#include <khash.h>
 #include <shader.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+KHASH_MAP_INIT_STR(location, GLuint)
+
+struct Shader
+{
+	char fileName[INTRINSIC_STRING_LENGTH];
+	GLuint program;
+	GLuint attribLocations[VERTEX_ATTRIBUTE_COUNTS];
+	khash_t(location)* locations;
+};
 
 GLuint Shader_Load(GLenum type, const char* fileName)
 {
@@ -139,10 +152,12 @@ Shader* Shader_Create(const char* fileName)
 		GLint location = glGetUniformLocation(program, name);
 		if (location >= 0)
 		{
-			Uniform* s = (Uniform*)malloc(sizeof(Uniform));
-			strcpy(s->name, name);
-			s->location = (GLuint)location;
-			HASH_ADD_STR(shader->uniforms, name, s);
+			int ret;
+			khiter_t k = kh_put(location, shader->locations, name, &ret);
+			if (ret != 0)
+			{
+				kh_value(shader->locations, k) = (GLuint)location;
+			}
 		}
 	}
 
@@ -151,23 +166,31 @@ Shader* Shader_Create(const char* fileName)
 
 void Shader_Destroy(Shader* shader)
 {
-	Uniform* current, *tmp;
-	HASH_ITER(hh, shader->uniforms, current, tmp)
-	{
-		HASH_DEL(shader->uniforms, current);
-		free(current);
-	}
+	kh_destroy(location, shader->locations);
 	glDeleteProgram(shader->program);
 	free(shader);
 }
 
-GLint Shader_GetUniformLocation(const Shader* shader, const char* name)
+GLint Shader_GetLocation(const Shader* shader, const char* name)
 {
-	Uniform* uniform = NULL;
-	HASH_FIND_STR(shader->uniforms, name, uniform);
-	if (uniform != NULL)
+	khiter_t k = kh_get(location, shader->locations, name);
+	if (k != kh_end(shader->locations))
 	{
-		return uniform->location;
+		return kh_value(shader->locations, k);
 	}
 	return -1;
+}
+
+void Shader_Use(Shader* shader)
+{
+	glUseProgram(shader->program);
+}
+
+void Shader_EnableVertexArray(Shader* shader)
+{
+	for (int i = 0; i < VERTEX_ATTRIBUTE_COUNTS; i++)
+	{
+		glEnableVertexAttribArray(shader->attribLocations[i]);
+		glVertexAttribPointer(shader->attribLocations[i], VertexAttributes[i].componentCounts, VertexAttributes[i].type, GL_FALSE, sizeof(Vertex), (const void*)(VertexAttributes[i].offset));
+	}
 }
