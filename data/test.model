@@ -1,70 +1,8 @@
 {
 	"Name": "test",
-	"Materials":
-	[
-		{
-			"shader": "triangle"
-		}
-	],
-	"Meshes":
-	[
-		{
-			"vertices":
-			[
-				{
-					"position": [0.0, 0.5, 0.0],
-					"normal": [0.0, 0.0, 0.0],
-					"tangent": [0.0, 0.0, 0.0],
-					"bitangent": [0.0, 0.0, 0.0],
-					"uv1": [0.0, 0.0],
-					"uv2": [0.0, 0.0],
-					"color": [1.0, 0.0, 0.0, 1.0]
-				},
-				{
-					"position": [-0.5, -0.5, 0.0],
-					"normal": [0.0, 0.0, 0.0],
-					"tangent": [0.0, 0.0, 0.0],
-					"bitangent": [0.0, 0.0, 0.0],
-					"uv1": [0.0, 0.0],
-					"uv2": [0.0, 0.0],
-					"color": [0.0, 1.0, 0.0, 1.0]
-				},
-				{
-					"position": [0.5, -0.5, 0.0],
-					"normal": [0.0, 0.0, 0.0],
-					"tangent": [0.0, 0.0, 0.0],
-					"bitangent": [0.0, 0.0, 0.0],
-					"uv1": [0.0, 0.0],
-					"uv2": [0.0, 0.0],
-					"color": [0.0, 0.0, 1.0, 1.0]
-				}
-			],
-			"indices":
-			[
-				0, 1, 2
-			],
-			"material": 0
-		}
-	],
-	"RootFrame": "main",
-	"Frames":
-	[
-		{
-			"name": "main",
-			"children":
-			[
-			],
-			"mesh":
-			[
-				0
-			],
-			"transformation":
-			[
-				1, 0, 0, 0,
-				0, 1, 0, 0,
-				0, 0, 1, 0,
-				0, 0, 0, 1
-			]
-		}
-	]
+	"Material":
+  {
+    "shader": "triangle.glsl"
+  },
+	"Mesh": "woman1.nfg"
 }

@@ -3,10 +3,27 @@
 
 #include <config.h>
 
-typedef struct Model Model;
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-Model* Model_Create(const char* name);
-void Model_Destroy(Model* model);
-void Model_Draw(Model* model);
+#include <chunk.h>
+
+#ifdef __cplusplus
+}
+#endif
+
+
+class Model
+{
+public:
+	Model(const char* fileName);
+	~Model();
+
+	void Draw();
+
+private:
+	Chunk* m_chunk;
+};
 
 #endif
