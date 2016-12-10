@@ -31,6 +31,9 @@
     <ClCompile Include="..\src\core\vertex.c">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\core\texture.c">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\test\gason.h">
