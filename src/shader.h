@@ -6,7 +6,7 @@
 
 typedef struct Shader Shader;
 
-Shader* Shader_Create(const char* fileName);
+Shader* Shader_Compile(const char* sourceCode);
 void Shader_Destroy(Shader* shader);
 void Shader_Use(Shader* shader);
 void Shader_EnableVertexArray(Shader* shader);

@@ -10,12 +10,6 @@ typedef unsigned int uint32;
 
 #define INTRINSIC_STRING_LENGTH 32
 
-typedef struct Generic
-{
-	uint32 size;
-	void* data;
-} Generic;
-
 typedef enum Result
 {
 	Result_SUCCESS = 0,

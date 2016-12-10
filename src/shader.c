@@ -2,7 +2,34 @@
 #include <vertex.h>
 #include <khash.h>
 #include <stdlib.h>
-#include <stdio.h>
+
+#define LOG_SHADER_ERR(shader)											\
+	GLint infoLen = 0;													\
+	glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLen);				\
+																		\
+	if (infoLen > 1)													\
+	{																	\
+		char* infoLog = (char*)malloc(sizeof(char) * infoLen);			\
+																		\
+		glGetShaderInfoLog(shader, infoLen, NULL, infoLog);				\
+		LOG_E("Error compiling shader:\n%s\n", infoLog);				\
+																		\
+		free(infoLog);													\
+	}																	\
+
+#define LOG_PROGRAM_ERR(program)										\
+	GLint infoLen = 0;													\
+	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLen);				\
+																		\
+	if (infoLen > 1)													\
+	{																	\
+		char* infoLog = (char*)malloc(sizeof(char) * infoLen);			\
+																		\
+		glGetProgramInfoLog(program, infoLen, NULL, infoLog);			\
+		LOG_E("Error linking program:\n%s\n", infoLog);					\
+																		\
+		free(infoLog);													\
+	}																	\
 
 KHASH_MAP_INIT_STR(location, GLuint)
 
@@ -14,124 +41,78 @@ struct Shader
 	khash_t(location)* locations;
 };
 
-GLuint Shader_Load(GLenum type, const char* fileName)
+Shader* Shader_Compile(const char* sourceCode)
 {
-	GLuint shader;
-	GLint compiled;
+	ASSERT(sourceCode != NULL);
 
-	shader = glCreateShader(type);
-	if (shader == 0)
-		return 0;
-
-	// Load the shader source
-	FILE * pf;
-	if (fopen_s(&pf, fileName, "rb") != 0)
+	const char* vertex = sourceCode;
+	const char* fragment = strstr(sourceCode, "/*fragment shader*/");
+	if (fragment == NULL)
+	{
+		LOG_E("Cannot find fragment shader.");
 		return NULL;
-	fseek(pf, 0, SEEK_END);
-	long size = ftell(pf);
-	fseek(pf, 0, SEEK_SET);
-
-	char* shaderSrc = (char*)malloc(size + 1);
-	fread(shaderSrc, sizeof(char), size, pf);
-	shaderSrc[size] = 0;
-	fclose(pf);
-
-	glShaderSource(shader, 1, (const char **)&shaderSrc, NULL);
-	free(shaderSrc);
-
-	// Compile the shader
-	glCompileShader(shader);
-
-	// Check the compile status
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
-
-	if (!compiled)
-	{
-		GLint infoLen = 0;
-
-		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLen);
-
-		if (infoLen > 1)
-		{
-			char* infoLog = (char*)malloc(sizeof(char) * infoLen);
-
-			glGetShaderInfoLog(shader, infoLen, NULL, infoLog);
-			LOG_E("Error compiling shader <%s>:\n%s\n", fileName, infoLog);
-
-			free(infoLog);
-		}
-
-		glDeleteShader(shader);
-		return 0;
 	}
 
-	return shader;
-}
-
-Shader* Shader_Create(const char* fileName)
-{
-	Shader* shader = (Shader*)malloc(sizeof(Shader));
-
-	char realName[64];
-	strcpy(realName, fileName);
-	strcat(realName, ".vs");
-	GLuint vertex = Shader_Load(GL_VERTEX_SHADER, realName);
-	if (vertex == 0)
+	GLint status = 0;
+	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	if (vertexShader == 0)
 	{
-		LOG_E("Error while creating %s vertex shader", fileName);
-		return;
+		LOG_E("Cannot create vertex shader");
+		return NULL;
+	}
+	GLint size = fragment - vertex;
+	glShaderSource(vertexShader, 1, &vertex, &size);
+	glCompileShader(vertexShader);
+	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &status);
+	if (status != GL_TRUE)
+	{
+		LOG_SHADER_ERR(vertexShader);
+		glDeleteShader(vertexShader);
+		return NULL;
 	}
 
-	strcpy(realName, fileName);
-	strcat(realName, ".fs");
-	GLuint fragment = Shader_Load(GL_FRAGMENT_SHADER, realName);
-	if (vertex == 0)
+	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	if (fragmentShader == 0)
 	{
-		LOG_E("Error while creating %s fragment shader", fileName);
-		glDeleteShader(vertex);
-		return;
+		LOG_E("Cannot create fragment shader");
+		glDeleteShader(vertexShader);
+		return NULL;
+	}
+	glShaderSource(fragmentShader, 1, &fragment, NULL);
+	glCompileShader(fragmentShader);
+	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &status);
+	if (status != GL_TRUE)
+	{
+		LOG_SHADER_ERR(fragmentShader);
+		glDeleteShader(fragmentShader);
+		return NULL;
 	}
 
 	GLuint program = glCreateProgram();
 	if (program == 0)
 	{
 		LOG_E("Error while creating a new shader program");
-		glDeleteShader(vertex);
-		glDeleteShader(fragment);
-		return;
+		glDeleteShader(vertexShader);
+		glDeleteShader(fragmentShader);
+		return NULL;
 	}
 
-	glAttachShader(program, vertex);
-	glAttachShader(program, fragment);
+	glAttachShader(program, vertexShader);
+	glAttachShader(program, fragmentShader);
 	glLinkProgram(program);
-
-	GLint linkStatus;
-	glGetProgramiv(program, GL_LINK_STATUS, &linkStatus);
-	if (!linkStatus)
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
+	glGetProgramiv(program, GL_LINK_STATUS, &status);
+	if (status != GL_TRUE)
 	{
-		GLint infoLen = 0;
-
-		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLen);
-
-		if (infoLen > 1)
-		{
-			char* infoLog = (char*)malloc(sizeof(char) * infoLen);
-
-			glGetProgramInfoLog(program, infoLen, NULL, infoLog);
-			LOG_E("Error linking program:\n%s\n", infoLog);
-
-			free(infoLog);
-		}
-
-		glDeleteShader(vertex);
-		glDeleteShader(fragment);
+		LOG_SHADER_ERR(program);
 		glDeleteProgram(program);
-		return;
+		return NULL;
 	}
 
+	Shader* shader = (Shader*)malloc(sizeof(Shader));
 	shader->program = program;
 
-	// Cache all attributes and uniforms info
 	for (int i = 0; i < VERTEX_ATTRIBUTE_COUNTS; i++)
 	{
 		shader->attribLocations[i] = glGetAttribLocation(program, VertexAttributes[i].name);
@@ -146,7 +127,7 @@ Shader* Shader_Create(const char* fileName)
 	for (GLuint i = 0; i < count; i++)
 	{
 		glGetActiveUniform(program, i, 16, NULL, NULL, NULL, name);
-		LOG_I("Uniform #%d Type: %u Name: %s\n", i, type, name);
+		LOG_I("Uniform #%d Name: %s\n", i, name);
 
 		GLint location = glGetUniformLocation(program, name);
 		if (location >= 0)

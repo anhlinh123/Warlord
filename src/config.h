@@ -3,11 +3,15 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
-#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <types.h>
+#include <assert.h>
 
-#define LOG_I(x)
-#define LOG_E(x)	printf(x);
-#define LOG_W(x)
+#define ASSERT assert
+
+#define LOG_I(...)	printf(__VA_ARGS__);
+#define LOG_E(...)	printf(__VA_ARGS__);
+#define LOG_W(...)	printf(__VA_ARGS__);
 
 #endif

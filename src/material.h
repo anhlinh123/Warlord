@@ -10,6 +10,8 @@ typedef struct Material Material;
 Material* Material_Create();
 void Material_Destroy(Material* material);
 
+void Material_Apply(Material* material);
+
 Result Material_Get_Float(const Material* material, const char* name, float* value);
 Result Material_Get_Float3(const Material* material, const char* name, float3* value);
 Result Material_Get_Float4(const Material* material, const char* name, float4* value);

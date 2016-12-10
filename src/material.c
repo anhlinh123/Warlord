@@ -26,7 +26,7 @@ Material* Material_Create()
 	material->matrix3x3s = kh_init(matrix3x3);
 	material->matrix4x4s = kh_init(matrix4x4);
 	material->shader = NULL;
-	return NULL;
+	return material;
 }
 
 void Material_Destroy(Material* material)
@@ -37,6 +37,56 @@ void Material_Destroy(Material* material)
 	kh_destroy(matrix3x3, material->matrix3x3s);
 	kh_destroy(matrix4x4, material->matrix4x4s);
 	free(material);
+}
+
+void Material_Apply(Material* material)
+{
+	Shader* shader = material->shader;
+	const char* name = NULL;
+	float floatvalue;
+	kh_foreach(material->floats, name, floatvalue,
+		GLint location = Shader_GetLocation(shader, name);
+		if (location != -1)
+		{
+			glUniform1f(location, floatvalue);
+		}
+	);
+
+	float3 float3value;
+	kh_foreach(material->float3s, name, float3value,
+		GLint location = Shader_GetLocation(shader, name);
+		if (location != -1)
+		{
+			glUniform3f(location, float3value.x, float3value.y, float3value.z);
+		}
+	);
+
+	float4 float4value;
+	kh_foreach(material->float4s, name, float4value,
+		GLint location = Shader_GetLocation(shader, name);
+		if (location != -1)
+		{
+			glUniform4f(location, float4value.x, float4value.y, float4value.z, float4value.w);
+		}
+	);
+
+	matrix3x3 matrix3x3value;
+	kh_foreach(material->matrix3x3s, name, matrix3x3value,
+		GLint location = Shader_GetLocation(shader, name);
+		if (location != -1)
+		{
+			glUniformMatrix3fv(location, 1, GL_FALSE, (GLfloat*)matrix3x3value.data);
+		}
+	);
+
+	matrix4x4 matrix4x4value;
+	kh_foreach(material->matrix4x4s, name, matrix4x4value,
+		GLint location = Shader_GetLocation(shader, name);
+		if (location != -1)
+		{
+			glUniformMatrix4fv(location, 1, GL_FALSE, (GLfloat*)matrix4x4value.data);
+		}
+	);
 }
 
 Result Material_Get_Float(const Material* material, const char* name, float* value)

@@ -1,12 +1,14 @@
+#include <config.h>
 #include <glad.h>
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 #include "vertex.h"
 #include <shader.h>
 #include <mesh.h>
+#include <chunk.h>
+#include <material.h>
 
-Mesh* mesh;
-Shader* shader;
+Chunk* chunk;
 
 void Init()
 {
@@ -24,19 +26,30 @@ void Init()
 
 	GLushort indices[] = { 0, 1, 2 };
 
-	mesh = Mesh_Create(verticesData, 3, indices, 3);
-	//mesh.Load("M4A1.dae");
-	shader = Shader_Create("triangle");
+	Mesh* mesh = Mesh_Create(verticesData, 3, indices, 3);
+	Material* material = Material_Create();
+
+	FILE* f = fopen("triangle.glsl", "rb");
+	fseek(f, 0, SEEK_END);
+	long size = ftell(f);
+	fseek(f, 0, SEEK_SET);
+
+	char* shaderSrc = (char*)malloc(size + 1);
+	fread(shaderSrc, sizeof(char), size, f);
+	shaderSrc[size] = 0;
+	fclose(f);
+	Shader* shader = Shader_Compile(shaderSrc);
+	free(shaderSrc);
+
+	Material_Set_Shader(material, shader);
+	
+	chunk = Chunk_Create(mesh, material);
 }
 
 void Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-	Shader_Use(shader);
-	Mesh_BindBuffer(mesh);
-	Shader_EnableVertexArray(shader);
-	Mesh_Draw(mesh);
-	Mesh_UnbindBuffer(mesh);
+	Chunk_Draw(chunk);
 }
 
 int main(void)
