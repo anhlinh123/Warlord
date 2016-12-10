@@ -1,8 +1,8 @@
 #ifndef __SHADER_H__
 #define __SHADER_H__
 
-#include <config.h>
-#include <glad.h>
+#include "config.h"
+#include <opengl/glad.h>
 
 typedef struct Shader Shader;
 

@@ -1,75 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\src\chunk.c">
-      <Filter>core</Filter>
+    <ClCompile Include="..\src\test\gason.cpp">
+      <Filter>test</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\material.c">
-      <Filter>core</Filter>
+    <ClCompile Include="..\src\test\model.cpp">
+      <Filter>test</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\shader.c">
-      <Filter>core</Filter>
+    <ClCompile Include="..\src\test\test.cpp">
+      <Filter>test</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\vertex.c">
-      <Filter>core</Filter>
+    <ClCompile Include="..\src\test\TGA.cpp">
+      <Filter>test</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mesh.c">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\glad.c">
+    <ClCompile Include="..\src\opengl\glad.c">
       <Filter>opengl</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\gason.cpp">
-      <Filter>test</Filter>
+    <ClCompile Include="..\src\core\chunk.c">
+      <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\model.cpp">
-      <Filter>test</Filter>
+    <ClCompile Include="..\src\core\material.c">
+      <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\test.cpp">
-      <Filter>test</Filter>
+    <ClCompile Include="..\src\core\mesh.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\shader.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\vertex.c">
+      <Filter>core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\chunk.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\material.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\shader.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\vertex.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mesh.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\khash.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\glad.h">
-      <Filter>opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\khrplatform.h">
-      <Filter>opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\texture.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\model.h">
+    <ClInclude Include="..\src\test\gason.h">
       <Filter>test</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\maths.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\gason.h">
+    <ClInclude Include="..\src\test\model.h">
       <Filter>test</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\config.h">
+    <ClInclude Include="..\src\test\TGA.h">
+      <Filter>test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\opengl\glad.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\opengl\khrplatform.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\chunk.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\types.h">
+    <ClInclude Include="..\src\core\config.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\khash.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\material.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\maths.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\mesh.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\shader.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\texture.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\types.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\vertex.h">
       <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>

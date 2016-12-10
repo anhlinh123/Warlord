@@ -1,5 +1,5 @@
-#include <glad.h>
-#include <vertex.h>
+#include <opengl/glad.h>
+#include "vertex.h"
 
 VertexAttribute VertexAttributes[] =
 {

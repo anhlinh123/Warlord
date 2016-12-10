@@ -11,31 +11,33 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\chunk.c" />
-    <ClCompile Include="..\src\gason.cpp" />
-    <ClCompile Include="..\src\glad.c" />
-    <ClCompile Include="..\src\material.c" />
-    <ClCompile Include="..\src\mesh.c" />
-    <ClCompile Include="..\src\model.cpp" />
-    <ClCompile Include="..\src\shader.c" />
-    <ClCompile Include="..\src\test.cpp" />
-    <ClCompile Include="..\src\vertex.c" />
+    <ClCompile Include="..\src\core\chunk.c" />
+    <ClCompile Include="..\src\core\material.c" />
+    <ClCompile Include="..\src\core\mesh.c" />
+    <ClCompile Include="..\src\core\shader.c" />
+    <ClCompile Include="..\src\core\vertex.c" />
+    <ClCompile Include="..\src\opengl\glad.c" />
+    <ClCompile Include="..\src\test\gason.cpp" />
+    <ClCompile Include="..\src\test\model.cpp" />
+    <ClCompile Include="..\src\test\test.cpp" />
+    <ClCompile Include="..\src\test\TGA.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\config.h" />
-    <ClInclude Include="..\src\chunk.h" />
-    <ClInclude Include="..\src\gason.h" />
-    <ClInclude Include="..\src\glad.h" />
-    <ClInclude Include="..\src\khash.h" />
-    <ClInclude Include="..\src\khrplatform.h" />
-    <ClInclude Include="..\src\material.h" />
-    <ClInclude Include="..\src\maths.h" />
-    <ClInclude Include="..\src\mesh.h" />
-    <ClInclude Include="..\src\model.h" />
-    <ClInclude Include="..\src\shader.h" />
-    <ClInclude Include="..\src\texture.h" />
-    <ClInclude Include="..\src\types.h" />
-    <ClInclude Include="..\src\vertex.h" />
+    <ClInclude Include="..\src\core\chunk.h" />
+    <ClInclude Include="..\src\core\config.h" />
+    <ClInclude Include="..\src\core\khash.h" />
+    <ClInclude Include="..\src\core\material.h" />
+    <ClInclude Include="..\src\core\maths.h" />
+    <ClInclude Include="..\src\core\mesh.h" />
+    <ClInclude Include="..\src\core\shader.h" />
+    <ClInclude Include="..\src\core\texture.h" />
+    <ClInclude Include="..\src\core\types.h" />
+    <ClInclude Include="..\src\core\vertex.h" />
+    <ClInclude Include="..\src\opengl\glad.h" />
+    <ClInclude Include="..\src\opengl\khrplatform.h" />
+    <ClInclude Include="..\src\test\gason.h" />
+    <ClInclude Include="..\src\test\model.h" />
+    <ClInclude Include="..\src\test\TGA.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8FDED8D2-94C5-4BB3-B117-0544AC34750B}</ProjectGuid>

@@ -1,7 +1,10 @@
-#include <model.h>
-#include <mesh.h>
-#include <material.h>
-#include <gason.h>
+#include "model.h"
+#include "gason.h"
+
+extern "C" {
+#include <core/mesh.h>
+#include <core/material.h>
+}
 
 char* ReadFile(const char* fileName)
 {

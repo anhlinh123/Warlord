@@ -1,10 +1,10 @@
 #ifndef __FRAME_H__
 #define __FRAME_H__
 
-#include <config.h>
-#include <maths.h>
-#include <mesh.h>
-#include <material.h>
+#include "config.h"
+#include "maths.h"
+#include "mesh.h"
+#include "material.h"
 
 typedef struct Chunk Chunk;
 

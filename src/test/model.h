@@ -1,13 +1,12 @@
 #ifndef __MODEL_H__
 #define __MODEL_H__
 
-#include <config.h>
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include <chunk.h>
+#include <core/config.h>
+#include <core/chunk.h>
 
 #ifdef __cplusplus
 }

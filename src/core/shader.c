@@ -1,6 +1,6 @@
-#include <shader.h>
-#include <vertex.h>
-#include <khash.h>
+#include "shader.h"
+#include "vertex.h"
+#include "khash.h"
 #include <stdlib.h>
 
 #define LOG_SHADER_ERR(shader)											\

@@ -1,7 +1,7 @@
 #ifndef __VERTEX_H__
 #define __VERTEX_H__
 
-#include <maths.h>
+#include "maths.h"
 
 typedef struct Vertex
 {

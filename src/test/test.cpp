@@ -1,7 +1,7 @@
-#include <config.h>
-#include <glad.h>
+#include <core/config.h>
+#include <opengl/glad.h>
 #include <GLFW/glfw3.h>
-#include <model.h>
+#include "model.h"
 
 Model* model;
 

@@ -1,9 +1,9 @@
 #ifndef __MATERIAL_H__
 #define __MATERIAL_H__
 
-#include <config.h>
-#include <maths.h>
-#include <shader.h>
+#include "config.h"
+#include "maths.h"
+#include "shader.h"
 
 typedef struct Material Material;
 
