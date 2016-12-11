@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include "defines.h"
 #include "types.h"
 
 #define ASSERT assert
