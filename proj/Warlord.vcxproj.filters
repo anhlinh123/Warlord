@@ -81,6 +81,9 @@
     <ClInclude Include="..\src\core\vertex.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\core\defines.h">
+      <Filter>core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="core">

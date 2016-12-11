@@ -26,6 +26,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\core\chunk.h" />
     <ClInclude Include="..\src\core\config.h" />
+    <ClInclude Include="..\src\core\defines.h" />
     <ClInclude Include="..\src\core\khash.h" />
     <ClInclude Include="..\src\core\material.h" />
     <ClInclude Include="..\src\core\maths.h" />
