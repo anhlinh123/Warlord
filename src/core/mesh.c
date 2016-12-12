@@ -1,4 +1,5 @@
 #include "mesh.h"
+#include <opengl/glad.h>
 #include <stdlib.h>
 
 struct Mesh
@@ -8,8 +9,14 @@ struct Mesh
 	GLuint materialIndex;
 };
 
-Mesh* Mesh_Create(const Vertex* vertices, int vertex_count, const GLushort* indices, int index_count)
+Mesh* Mesh_Create(const Mesh_Data* mesh_data)
 {
+	GLushort* indices = (GLushort*)malloc(sizeof(GLushort) * mesh_data->indexCount);
+	for (int i = 0; i < mesh_data->indexCount; i++)
+	{
+		indices[i] = (GLushort)mesh_data->indices[i];
+	}
+
 	Mesh* mesh = (Mesh*)malloc(sizeof(Mesh));
 
 	glGenBuffers(2, mesh->boIds);
@@ -17,13 +24,15 @@ Mesh* Mesh_Create(const Vertex* vertices, int vertex_count, const GLushort* indi
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->boIds[0]);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->boIds[1]);
 	
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertex_count, vertices, GL_STATIC_DRAW);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * index_count, indices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * mesh_data->vertexCount, mesh_data->vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * mesh_data->indexCount, indices, GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	mesh->indexCount = index_count;
+	mesh->indexCount = mesh_data->indexCount;
+
+	free(indices);
 
 	return mesh;
 }

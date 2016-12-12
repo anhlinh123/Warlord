@@ -18,9 +18,9 @@ typedef struct Texture_Desc
 
 typedef struct Texture Texture;
 
-Texture* Texture_Create(Texture_Desc* texture_desc);
+Texture* Texture_Create(const Texture_Desc* texture_desc);
 void Texture_Destroy(Texture* texture);
 void Texture_SetData(Texture* texture, uint32 mipmapLevel, const void* data);
-void Texture_Apply(Texture* texture, Texture_Desc* texture_desc);
+void Texture_Apply(Texture* texture, const Texture_Desc* texture_desc);
 
 #endif

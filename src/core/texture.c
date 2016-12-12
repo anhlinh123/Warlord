@@ -34,7 +34,7 @@ GLenum Texture_ToGLenum(int value)
 	}
 }
 
-Texture* Texture_Create(Texture_Desc* texture_desc)
+Texture* Texture_Create(const Texture_Desc* texture_desc)
 {
 	Texture* texture = (Texture*) malloc(sizeof(Texture));
 	glGenTextures(1, &texture->id);
@@ -74,7 +74,7 @@ void Texture_SetData(Texture* texture, uint32 mipmapLevel, const void* data)
 	glBindTexture(texture->type, 0);
 }
 
-void Texture_Apply(Texture* texture, Texture_Desc* texture_desc)
+void Texture_Apply(Texture* texture, const Texture_Desc* texture_desc)
 {
 	ASSERT(texture->id >= 0);
 

@@ -1,5 +1,6 @@
 #include "model.h"
 #include "gason.h"
+#include <string.h>
 
 extern "C" {
 #include <core/mesh.h>
@@ -46,25 +47,24 @@ Mesh* LoadMesh(JsonValue value)
 	if (f == NULL)
 		return NULL;
 
-	int vertexCount = 0;
-	fscanf(f, "NrVertices: %d\n", &vertexCount);
-	Vertex* vertices = new Vertex[vertexCount];
-	for (int i = 0; i < vertexCount; i++)
+	Mesh_Data mesh_data;
+	fscanf(f, "NrVertices: %d\n", &mesh_data.vertexCount);
+	mesh_data.vertices = new Vertex[mesh_data.vertexCount];
+	for (int i = 0; i < mesh_data.vertexCount; i++)
 	{
-		fscanf(f, "%*s pos:[%f, %f, %f]; norm:[%*f, %*f, %*f]; binorm:[%*f, %*f, %*f]; tgt:[%*f, %*f, %*f]; uv:[%*f, %*f];\n", &vertices[i].position.x, &vertices[i].position.y, &vertices[i].position.z);
+		fscanf(f, "%*s pos:[%f, %f, %f]; norm:[%*f, %*f, %*f]; binorm:[%*f, %*f, %*f]; tgt:[%*f, %*f, %*f]; uv:[%*f, %*f];\n", &(mesh_data.vertices[i].position.x), &(mesh_data.vertices[i].position.y), &(mesh_data.vertices[i].position.z));
 	}
 
-	int indexCount = 0;
-	fscanf(f, "NrIndices: %d\n", &indexCount);
-	GLushort* indices = new GLushort[indexCount];
-	for (int i = 0; i < indexCount / 3; i++)
+	fscanf(f, "NrIndices: %d\n", &mesh_data.indexCount);
+	mesh_data.indices = new uint32[mesh_data.indexCount];
+	for (int i = 0; i < mesh_data.indexCount / 3; i++)
 	{
-		fscanf(f, "%*d. %hu, %hu, %hu", &indices[i * 3], &indices[i * 3 + 1], &indices[i * 3 + 2]);
+		fscanf(f, "%*d. %u, %u, %u", &(mesh_data.indices[i * 3]), &(mesh_data.indices[i * 3 + 1]), &(mesh_data.indices[i * 3 + 2]));
 	}
 
-	Mesh* mesh = Mesh_Create(vertices, vertexCount, indices, indexCount);
-	delete[] vertices;
-	delete[] indices;
+	Mesh* mesh = Mesh_Create(&mesh_data);
+	delete[] mesh_data.vertices;
+	delete[] mesh_data.indices;
 
 	return mesh;
 }

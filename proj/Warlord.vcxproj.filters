@@ -28,9 +28,6 @@
     <ClCompile Include="..\src\core\shader.c">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\core\vertex.c">
-      <Filter>core</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\core\texture.c">
       <Filter>core</Filter>
     </ClCompile>

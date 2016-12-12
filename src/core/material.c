@@ -1,5 +1,6 @@
 #include "material.h"
 #include "khash.h"
+#include <opengl/glad.h>
 
 KHASH_MAP_INIT_STR(float, float)
 KHASH_MAP_INIT_STR(float3, float3)

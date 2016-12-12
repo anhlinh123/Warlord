@@ -16,14 +16,4 @@ typedef struct Vertex
 
 #define VERTEX_ATTRIBUTE_COUNTS 7
 
-typedef struct VertexAttribute
-{
-	const char* name;
-	GLuint componentCounts;
-	GLenum type;
-	GLuint offset;
-} VertexAttribute;
-
-extern VertexAttribute VertexAttributes[];
-
 #endif

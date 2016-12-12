@@ -2,6 +2,7 @@
 #include "vertex.h"
 #include "khash.h"
 #include <stdlib.h>
+#include <opengl/glad.h>
 
 #define LOG_SHADER_ERR(shader)											\
 	GLint infoLen = 0;													\
@@ -32,6 +33,39 @@
 	}																	\
 
 KHASH_MAP_INIT_STR(location, GLuint)
+
+typedef struct VertexAttribute
+{
+	const char* name;
+	GLuint componentCounts;
+	GLenum type;
+	GLuint offset;
+} VertexAttribute;
+
+VertexAttribute VertexAttributes[] =
+{
+	{
+		"aPosition", 3, GL_FLOAT, 0
+	},
+	{
+		"aNormal", 3, GL_FLOAT, sizeof(float3)
+	},
+	{
+		"aTangent", 3, GL_FLOAT, 2 * sizeof(float3)
+	},
+	{
+		"aBitangent", 3, GL_FLOAT, 3 * sizeof(float3)
+	},
+	{
+		"aUV1", 2, GL_FLOAT, 4 * sizeof(float3)
+	},
+	{
+		"aUV2", 2, GL_FLOAT, 4 * sizeof(float3) + sizeof(float2)
+	},
+	{
+		"aColor", 4, GL_FLOAT, 4 * sizeof(float3) + 2 * sizeof(float2)
+	}
+};
 
 struct Shader
 {
@@ -151,7 +185,7 @@ void Shader_Destroy(Shader* shader)
 	free(shader);
 }
 
-GLint Shader_GetLocation(const Shader* shader, const char* name)
+int32 Shader_GetLocation(const Shader* shader, const char* name)
 {
 	khiter_t k = kh_get(location, shader->locations, name);
 	if (k != kh_end(shader->locations))

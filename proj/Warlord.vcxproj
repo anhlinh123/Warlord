@@ -16,7 +16,6 @@
     <ClCompile Include="..\src\core\mesh.c" />
     <ClCompile Include="..\src\core\shader.c" />
     <ClCompile Include="..\src\core\texture.c" />
-    <ClCompile Include="..\src\core\vertex.c" />
     <ClCompile Include="..\src\opengl\glad.c" />
     <ClCompile Include="..\src\test\gason.cpp" />
     <ClCompile Include="..\src\test\model.cpp" />
