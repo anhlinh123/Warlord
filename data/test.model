@@ -2,6 +2,12 @@
 	"Name": "test",
 	"Material":
   {
+    "textures":
+    [
+      {
+        "main": "woman1.tga"
+      }
+    ],
     "shader": "triangle.glsl"
   },
 	"Mesh": "woman1.nfg"

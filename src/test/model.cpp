@@ -1,10 +1,12 @@
 #include "model.h"
 #include "gason.h"
 #include <string.h>
+#include "TGA.h"
 
 extern "C" {
 #include <core/mesh.h>
 #include <core/material.h>
+#include <core/texture.h>
 }
 
 char* ReadFile(const char* fileName)
@@ -30,7 +32,36 @@ Material* LoadMaterial(JsonValue value)
 	Material* material = Material_Create();
 	for (auto prop : value)
 	{
-		if (strcmp(prop->key, "shader") == 0)
+		if (strcmp(prop->key, "textures") == 0)
+		{
+			for (auto texprop : prop->value)
+			{
+				Texture_Desc desc =
+				{
+					TEXTURE_2D,
+					TEXTURE_RGBA_8888,
+					0,
+					0,
+					0,
+					FILTER_BILINEAR,
+					FILTER_LINEAR,
+					WRAP_CLAMP,
+					WRAP_CLAMP
+				};
+				int bpp;
+				char* buffer = LoadTGA(texprop->value.toString(), (int*)&desc.width, (int*)&desc.height, &bpp);
+				if (bpp == 24)
+					desc.format == TEXTURE_RGB_888;
+				else if (bpp == 32)
+					desc.format == TEXTURE_RGBA_8888;
+
+				Texture* texture = Texture_Create(&desc);
+				Texture_SetData(texture, 0, buffer);
+				delete[] buffer;
+				Material_Set_Texture(material, texprop->key, &texture);
+			}
+		}
+		else if (strcmp(prop->key, "shader") == 0)
 		{
 			char* shaderSrc = ReadFile(prop->value.toString());
 			Shader* shader = Shader_Compile(shaderSrc);

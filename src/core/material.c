@@ -7,6 +7,7 @@ KHASH_MAP_INIT_STR(float3, float3)
 KHASH_MAP_INIT_STR(float4, float4)
 KHASH_MAP_INIT_STR(matrix3x3, matrix3x3)
 KHASH_MAP_INIT_STR(matrix4x4, matrix4x4)
+KHASH_MAP_INIT_STR(Texture, Texture*);
 
 struct Material
 {
@@ -15,6 +16,7 @@ struct Material
 	khash_t(float4)* float4s;
 	khash_t(matrix3x3)* matrix3x3s;
 	khash_t(matrix4x4)* matrix4x4s;
+	khash_t(Texture)* textures;
 	Shader* shader;
 };
 
@@ -26,6 +28,7 @@ Material* Material_Create()
 	material->float4s = kh_init(float4);
 	material->matrix3x3s = kh_init(matrix3x3);
 	material->matrix4x4s = kh_init(matrix4x4);
+	material->textures = kh_init(Texture);
 	material->shader = NULL;
 	return material;
 }
@@ -160,6 +163,20 @@ Result Material_Get_Matrix4x4(const Material* material, const char* name, matrix
 	return Result_FAILURE;
 }
 
+Result Material_Get_Texture(const Material* material, const char* name, Texture** value)
+{
+	if (value != NULL)
+	{
+		khiter_t k = kh_get(Texture, material->textures, name);
+		if (k != kh_end(material->textures))
+		{
+			*value = kh_value(material->textures, k);
+			return Result_SUCCESS;
+		}
+		return Result_FAILURE;
+	}
+}
+
 Result Material_Set_Float(Material* material, const char* name, float* value)
 {
 	if (value != NULL)
@@ -245,6 +262,24 @@ Result Material_Set_Matrix4x4(Material* material, const char* name, matrix4x4* v
 				return Result_FAILURE;
 		}
 		kh_value(material->matrix4x4s, k) = *value;
+		return Result_SUCCESS;
+	}
+	return Result_FAILURE;
+}
+
+Result Material_Set_Texture(const Material* material, const char* name, Texture** value)
+{
+	if (value != NULL)
+	{
+		khiter_t k = kh_get(Texture, material->textures, name);
+		if (k == kh_end(material->textures))
+		{
+			int ret;
+			k = kh_put(Texture, material->textures, name, &ret);
+			if (ret != 0)
+				return Result_FAILURE;
+		}
+		kh_value(material->textures, k) = *value;
 		return Result_SUCCESS;
 	}
 	return Result_FAILURE;
