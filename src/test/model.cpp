@@ -36,29 +36,32 @@ Material* LoadMaterial(JsonValue value)
 		{
 			for (auto texprop : prop->value)
 			{
-				Texture_Desc desc =
+				for (auto tex : texprop->value)
 				{
-					TEXTURE_2D,
-					TEXTURE_RGBA_8888,
-					0,
-					0,
-					0,
-					FILTER_BILINEAR,
-					FILTER_LINEAR,
-					WRAP_CLAMP,
-					WRAP_CLAMP
-				};
-				int bpp;
-				char* buffer = LoadTGA(texprop->value.toString(), (int*)&desc.width, (int*)&desc.height, &bpp);
-				if (bpp == 24)
-					desc.format == TEXTURE_RGB_888;
-				else if (bpp == 32)
-					desc.format == TEXTURE_RGBA_8888;
+					Texture_Desc desc =
+					{
+						TEXTURE_2D,
+						TEXTURE_RGBA_8888,
+						0,
+						0,
+						0,
+						FILTER_BILINEAR,
+						FILTER_LINEAR,
+						WRAP_CLAMP,
+						WRAP_CLAMP
+					};
+					int bpp = 0;
+					char* buffer = LoadTGA(tex->value.toString(), (int*)&desc.width, (int*)&desc.height, &bpp);
+					if (bpp == 24)
+						desc.format = TEXTURE_RGB_888;
+					else if (bpp == 32)
+						desc.format = TEXTURE_RGBA_8888;
 
-				Texture* texture = Texture_Create(&desc);
-				Texture_SetData(texture, 0, buffer);
-				delete[] buffer;
-				Material_Set_Texture(material, texprop->key, &texture);
+					Texture* texture = Texture_Create(&desc);
+					Texture_SetData(texture, 0, buffer);
+					delete[] buffer;
+					Material_Set_Texture(material, tex->key, &texture);
+				}
 			}
 		}
 		else if (strcmp(prop->key, "shader") == 0)
