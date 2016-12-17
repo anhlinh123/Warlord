@@ -16,21 +16,6 @@
     <ClCompile Include="..\src\opengl\glad.c">
       <Filter>opengl</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\core\chunk.c">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\core\material.c">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\core\mesh.c">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\core\shader.c">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\core\texture.c">
-      <Filter>core</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\test\gason.h">
@@ -48,44 +33,8 @@
     <ClInclude Include="..\src\opengl\khrplatform.h">
       <Filter>opengl</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\core\chunk.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\core\config.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\core\khash.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\core\material.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\core\maths.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\core\mesh.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\core\shader.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\core\texture.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\core\types.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\core\vertex.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\core\defines.h">
-      <Filter>core</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="core">
-      <UniqueIdentifier>{b7d8cba5-4da3-4fb1-bc39-609f82d6c0d8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="opengl">
       <UniqueIdentifier>{e3c68127-ea47-43e3-9b5c-74d1667bb31b}</UniqueIdentifier>
     </Filter>
