@@ -20,8 +20,9 @@
   <ItemGroup>
     <ClInclude Include="..\src\core\maths\lwMath.h" />
     <ClInclude Include="..\src\core\maths\lwTypes.h" />
-    <ClInclude Include="..\src\core\maths\vector2d.h" />
-    <ClInclude Include="..\src\core\maths\vector3d.h" />
+    <ClInclude Include="..\src\core\maths\float2.h" />
+    <ClInclude Include="..\src\core\maths\float3.h" />
+    <ClInclude Include="..\src\core\maths\matrix4.h" />
     <ClInclude Include="..\src\opengl\glad.h" />
     <ClInclude Include="..\src\opengl\khrplatform.h" />
     <ClInclude Include="..\src\test\gason.h" />

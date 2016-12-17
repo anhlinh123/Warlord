@@ -89,27 +89,6 @@ namespace lwge
 			return (a + tolerance >= b) && (a - tolerance <= b);
 		}
 
-		//! returns if a equals b, not using any rounding tolerance
-		inline bool equals(const s32 a, const s32 b)
-		{
-			return (a == b);
-		}
-
-		inline bool equals(const u32 a, const u32 b)
-		{
-			return (a == b);
-		}
-
-		inline bool equals(const u64 a, const u64 b)
-		{
-			return (a == b);
-		}
-
-		inline bool equals(const s64 a, const s64 b)
-		{
-			return (a == b);
-		}
-
 		//! returns if a equals zero, taking rounding errors into account
 		inline bool iszero(const f64 a, const f64 tolerance = LDBL_EPSILON)
 		{
@@ -126,30 +105,6 @@ namespace lwge
 		inline bool isnotzero(const f32 a, const f32 tolerance = FLT_EPSILON)
 		{
 			return fabsf(a) > tolerance;
-		}
-
-		//! returns if a equals zero, taking rounding errors into account
-		inline bool iszero(const s32 a, const s32 tolerance = 0)
-		{
-			return a == 0;
-		}
-
-		//! returns if a equals zero, taking rounding errors into account
-		inline bool iszero(const u32 a, const u32 tolerance = 0)
-		{
-			return a == 0;
-		}
-
-		//! returns if a equals zero, taking rounding errors into account
-		inline bool iszero(const u64 a, const u64 tolerance = 0)
-		{
-			return a == 0;
-		}
-
-		//! returns if a equals zero, taking rounding errors into account
-		inline bool iszero(const s64 a, const s64 tolerance = 0)
-		{
-			return a == 0;
 		}
 	}
 }
