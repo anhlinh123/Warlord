@@ -33,6 +33,18 @@
     <ClInclude Include="..\src\opengl\khrplatform.h">
       <Filter>opengl</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\core\maths\lwMath.h">
+      <Filter>core\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\maths\lwTypes.h">
+      <Filter>core\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\maths\vector2d.h">
+      <Filter>core\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\maths\vector3d.h">
+      <Filter>core\maths</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="opengl">
@@ -40,6 +52,12 @@
     </Filter>
     <Filter Include="test">
       <UniqueIdentifier>{7da50ce7-25e4-4e48-8d4a-1e50dd042886}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core">
+      <UniqueIdentifier>{4738d0cd-20a6-4e08-be2f-32bed3a2c89c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\maths">
+      <UniqueIdentifier>{f7d27a27-7a86-4663-bf60-dea5fed0cdf0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
